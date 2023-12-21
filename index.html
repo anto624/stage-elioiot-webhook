@@ -51,7 +51,15 @@
 
 
 function init(){
-    mac = getpar().mac;
+  
+  const temp = getpar(); 
+    if(temp){
+      mac = temp.mac
+      getvalu()
+    }else{
+      document.getElementById('valoreContatore').innerText = "MAC NULLO INCOLLA ?mac={your mac elio}";
+    }
+    
     getvalu();
 }
 
