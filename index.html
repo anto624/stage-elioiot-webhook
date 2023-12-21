@@ -53,14 +53,16 @@
 function init(){
   
   const temp = getpar(); 
-    if(temp){
+    if(temp.mac){
       mac = temp.mac
       getvalu()
     }else{
+      var countElement = document.getElementById('count');
+      countElement.classList.remove( "text-[50vh]")
+      countElement.classList.add("text-[5vh]");   
       document.getElementById('valoreContatore').innerText = "MAC NULLO INCOLLA ?mac={your mac elio}";
     }
     
-    getvalu();
 }
 
 function getvalu() {
