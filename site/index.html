@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+
+    let mac = "";
+
+    function getpar() {
+        var queryString = window.location.href ? window.location.href.split('?')[1] : window.location.search.slice(1);
+        var obj = {};
+      
+        if (queryString) {
+          queryString = queryString.split('#')[0];
+          var arr = queryString.split('&');
+      
+          for (var i = 0; i < arr.length; i++) {
+            var a = arr[i].split('=');
+            var paramName = a[0];
+            var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+      
+            paramName = paramName.toLowerCase();
+            if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+      
+            if (paramName.match(/\[(\d+)?\]$/)) {
+              var key = paramName.replace(/\[(\d+)?\]/, '');
+              if (!obj[key]) obj[key] = [];
+      
+              if (paramName.match(/\[\d+\]$/)) {
+                var index = /\[(\d+)\]/.exec(paramName)[1];
+                obj[key][index] = paramValue;
+              } else {
+                obj[key].push(paramValue);
+              }
+            } else {
+              if (!obj[paramName]) {
+                obj[paramName] = paramValue;
+              } else if (obj[paramName] && typeof obj[paramName] === 'string'){
+                obj[paramName] = [obj[paramName]];
+                obj[paramName].push(paramValue);
+              } else {
+                obj[paramName].push(paramValue);
+              }
+            }
+          }
+        }
+        return obj
+}
+
+
+function init(){
+    mac = getpar().mac;
+    getvalu();
+}
+
+function getvalu() {
+    var valoreContatore = 0
+    setInterval(() => {
+        fetch('http://localhost:3000/getvalue', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ MAC: mac })
+        })
+            .then(response =>
+
+                response.json()
+            )
+            .then(data => {
+                console.log(data)
+                document.getElementById('valoreContatore').innerText = data;
+            })
+            .catch(error => console.error('Errore:', error));
+    }, 1000)
+}
+      
+</script>
+
+</head>
+<body onload="init()">
+<div id="count" class="m-0 p-0 w-full h-[100vh] bg-black text-white text-center leading-[100vh] text-[50vh]">
+    <h1><span id="valoreContatore"></span></h1>
+</div>
+</body>
+</html>
