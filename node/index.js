@@ -17,7 +17,7 @@ app.post('/getvalue', (req, res) => {
             return;
         }
         res.setHeader('Content-Type', 'application/json');
-        res.send((JSON.parse(data).MAC[req.body.MAC]).toString() ? (JSON.parse(data).MAC[req.body.MAC]).toString() : '0')
+        res.send((JSON.parse(data).MAC[req.body.MAC]) ? (JSON.parse(data).MAC[req.body.MAC]).toString() : '0')
 
     });
 });
