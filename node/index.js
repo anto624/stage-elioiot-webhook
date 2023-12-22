@@ -56,8 +56,8 @@ app.post('/setvalue', (req, res) => {
 });
 
 const options = {
-    key: fs.readFileSync('/certificati/server.key'),
-    cert: fs.readFileSync('/certificati/server.cert'),
+    key: fs.readFileSync('/home/elio/certificati/server.key'),
+    cert: fs.readFileSync('/home/elio/certificati/server.cert'),
 };
 
 https.createServer(options, app).listen(PORT, () => {
