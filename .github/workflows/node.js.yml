@@ -7,10 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
-    env:
-      TOKEN: ${{ vars.TOKEN }}
-      GITTOKEN: ${{ vars.GITTOKEN }}
+    runs-on: self-hoste
 
     strategy:
       matrix:
