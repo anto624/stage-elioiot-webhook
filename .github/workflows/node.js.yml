@@ -17,8 +17,8 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - name: Stop Systemctl module "Antobot"
-      run: sudo systemctl stop antobot
+    - name: Stop Systemctl module "Elio-test-app"
+      run: sudo systemctl stop Elio-test-app
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -32,7 +32,7 @@ jobs:
       run: npm install
 
     - name: Start Systemctl module "Elio-test-app"
-      run: sudo systemctl start antobot
+      run: sudo systemctl start Elio-test-app
 
     - name: Complete task
       run: echo "Task completed successfully."
