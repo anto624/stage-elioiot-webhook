@@ -1,4 +1,5 @@
 const express = require('express');
+const https = require('https');
 const fs = require("fs")
 const app = express();
 const cors = require('cors');
@@ -54,6 +55,11 @@ app.post('/setvalue', (req, res) => {
 
 });
 
-app.listen(PORT, () => {
-    console.log(`Il server è in esecuzione sulla porta ${PORT}`);
+const options = {
+    key: fs.readFileSync('/certificati/server.key'),
+    cert: fs.readFileSync('/certificati/server.cert'),
+};
+
+https.createServer(options, app).listen(PORT, () => {
+    console.log('Server HTTPS avviato sulla porta ' + PORT);
 });
