@@ -17,13 +17,13 @@ app.post('/getvalue', (req, res) => {
             return;
         }
         res.setHeader('Content-Type', 'application/json');
-        res.send(parseInt(JSON.parse(data).MAC[req.body.MAC]).toString())
+        res.send(parseInt(JSON.parse(data).MAC[req.body.MAC]).toString() || '0')
 
     });
 });
 
 app.post('/setvalue', (req, res) => {
-    if (req.body != null || req.body != {}) {
+    if (req.body.MAC) {
         console.log("Ricevuta webhook da " + req.body.MAC + " con valore " + parseInt(req.body.query))
 
         const bodyrequest = {
